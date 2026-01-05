@@ -2,7 +2,7 @@
 
 A Python-based Prometheus exporter for [Pharos](https://pharosnetwork.xyz/) blockchain nodes.
 
-This application queries a Pharos node via JSON-RPC to fetch status information (syncing, peer count, validator status) and exposes it as Prometheus-compatible metrics.
+This application queries a Pharos node via JSON-RPC to fetch status information (syncing, validator status) and exposes it as Prometheus-compatible metrics.
 
 ## Features
 
