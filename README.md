@@ -115,5 +115,14 @@ groups:
         annotations:
           summary: "Pharos validator is not working"
           description: "The validator {{ $labels.validator_address }} on {{ $labels.instance }} is not in the active validator set."
+
+      - alert: PharosBlockNotIncreasing
+        expr: changes(pharos_block_number[10m]) == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pharos block number is not increasing"
+          description: "The Pharos node at {{ $labels.instance }} has not seen a new block in the last 10 minutes."
       
 ```

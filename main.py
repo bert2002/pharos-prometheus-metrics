@@ -8,9 +8,11 @@ from prometheus_client import Gauge
 app = FastAPI()
 
 # Configuration
-RPC_URL = os.getenv("RPC_URL", "http://localhost:8545")
+RPC_URL = os.getenv("RPC_URL", "http://localhost:8545").strip('"\'')
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "15"))
 VALIDATOR_ADDRESS = os.getenv("VALIDATOR_ADDRESS")
+if VALIDATOR_ADDRESS:
+    VALIDATOR_ADDRESS = VALIDATOR_ADDRESS.strip('"\'')
 
 # Metrics
 PHAROS_NODE_RUNNING = Gauge('pharos_node_running', 'Whether the Pharos node is running (reachable)')
