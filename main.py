@@ -8,7 +8,7 @@ from prometheus_client import Gauge
 app = FastAPI()
 
 # Configuration
-RPC_URL = os.getenv("RPC_URL", "http://localhost:8545").strip('"\'')
+RPC_URL = os.getenv("RPC_URL", "http://localhost:18100").strip('"\'')
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "15"))
 VALIDATOR_ADDRESS = os.getenv("VALIDATOR_ADDRESS")
 if VALIDATOR_ADDRESS:

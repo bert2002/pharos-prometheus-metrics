@@ -26,7 +26,7 @@ The application is configured via environment variables:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `RPC_URL` | **Required**. The JSON-RPC endpoint of the Pharos node (e.g., `https://your-pharos-node-rpc-url`). | `http://localhost:8545` |
+| `RPC_URL` | **Required**. The JSON-RPC endpoint of the Pharos node (e.g., `https://your-pharos-node-rpc-url`). | `http://localhost:18100` |
 | `POLL_INTERVAL` | Time in seconds between RPC polls. | `15` |
 | `VALIDATOR_ADDRESS` | (Optional) The wallet address of the validator to monitor. | `None` |
 | `PORT` | The port the exporter listens on (configured via uvicorn args or docker mapping). | `8000` |
