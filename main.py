@@ -64,6 +64,8 @@ def update_metrics():
                 # Check peer count
                 peer_data = make_rpc_request("net_peerCount")
                 if peer_data and "result" in peer_data:
+                    # DEBUG: Print raw peer data
+                    print(f"DEBUG: net_peerCount response: {peer_data}")
                     peer_count = int(peer_data["result"], 16)
                     PHAROS_PEER_COUNT.set(peer_count)
 
@@ -108,7 +110,7 @@ metrics_thread.start()
 
 # Mount metrics app
 metrics_app = make_asgi_app()
-app.mount("/metrics", metrics_app)
+app.add_route("/metrics", metrics_app)
 
 @app.get("/health")
 def health():

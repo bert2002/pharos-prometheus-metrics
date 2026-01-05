@@ -43,11 +43,14 @@ The application is configured via environment variables:
       - POLL_INTERVAL=15
       - VALIDATOR_ADDRESS=0xYourValidatorAddress
     ```
+
+    > **Note:** With host networking, the service will bind directly to port 8000 on the host. Ensure this port is free. localhost (127.0.0.1) will work directly.
+
 3.  Start the service:
     ```bash
     docker-compose up -d --build
     ```
-4.  Metrics will be available at `http://localhost:8001/metrics`.
+4.  Metrics will be available at `http://localhost:8000/metrics`.
 
 ## Running with Docker
 
@@ -58,7 +61,7 @@ The application is configured via environment variables:
 2.  Run the container:
     ```bash
     docker run -d \
-      -p 8001:8000 \
+      --network host \
       -e RPC_URL="https://your-pharos-node-rpc-url" \
       -e VALIDATOR_ADDRESS="0x..." \
       --name pharos-prometheus-metrics \

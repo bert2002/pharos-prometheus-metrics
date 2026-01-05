@@ -4,8 +4,7 @@ services:
   pharos-prometheus-metrics:
     build: .
     image: pharos-prometheus-metrics:latest
-    ports:
-      - "8001:8000"
+    network_mode: "host"
     environment:
       - RPC_URL=""
       - POLL_INTERVAL=15
