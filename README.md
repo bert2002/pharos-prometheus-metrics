@@ -91,7 +91,7 @@ groups:
     rules:
       - alert: PharosNodeDown
         expr: pharos_node_running == 0
-        for: 1m
+        for: 5m
         labels:
           severity: critical
         annotations:
@@ -100,12 +100,12 @@ groups:
 
       - alert: PharosNodeSyncing
         expr: pharos_node_syncing == 1
-        for: 5m
+        for: 15m
         labels:
           severity: warning
         annotations:
           summary: "Pharos node is syncing"
-          description: "The Pharos node at {{ $labels.instance }} has been syncing for more than 5 minutes."
+          description: "The Pharos node at {{ $labels.instance }} has been syncing for more than 15 minutes."
 
       - alert: PharosValidatorNotWorking
         expr: pharos_validator_working == 0
