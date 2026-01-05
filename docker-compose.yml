@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  pharos-prometheus-metrics:
+    build: .
+    image: pharos-prometheus-metrics:latest
+    ports:
+      - "8001:8000"
+    environment:
+      - RPC_URL=""
+      - POLL_INTERVAL=15
+      - VALIDATOR_ADDRESS=""
+    restart: unless-stopped
