@@ -8,7 +8,6 @@ This application queries a Pharos node via JSON-RPC to fetch status information 
 
 - **Sync Status**: Monitors if the node is currently syncing.
 - **Block Height**: Tracks the current block number.
-- **Peer Count**: Monitors the number of connected peers.
 - **Validator Status**: Checks if a specific validator address is active in the current block's validator set.
 - **Dockerized**: specific support for Python 3.14-slim.
 
@@ -19,7 +18,6 @@ The exporter exposes the following metrics at `/metrics`:
 - `pharos_node_running` (Gauge): 1 if the node is reachable and responding to RPC calls, 0 otherwise.
 - `pharos_node_syncing` (Gauge): 1 if the node is syncing, 0 if fully synced.
 - `pharos_block_number` (Gauge): The current block number (height).
-- `pharos_peer_count` (Gauge): The number of connected peers.
 - `pharos_validator_working{validator_address="..."}` (Gauge): 1 if the specified validator address is found in the current validator set, 0 otherwise.
 
 ## Configuration
@@ -118,12 +116,4 @@ groups:
           summary: "Pharos validator is not working"
           description: "The validator {{ $labels.validator_address }} on {{ $labels.instance }} is not in the active validator set."
       
-      - alert: PharosLowPeerCount
-        expr: pharos_peer_count < 5
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Pharos node has low peer count"
-          description: "The Pharos node at {{ $labels.instance }} has only {{ $value }} peers."
 ```

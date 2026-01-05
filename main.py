@@ -16,7 +16,6 @@ VALIDATOR_ADDRESS = os.getenv("VALIDATOR_ADDRESS")
 PHAROS_NODE_RUNNING = Gauge('pharos_node_running', 'Whether the Pharos node is running (reachable)')
 PHAROS_NODE_SYNCING = Gauge('pharos_node_syncing', 'Whether the Pharos node is syncing (1=syncing, 0=synced)')
 PHAROS_BLOCK_NUMBER = Gauge('pharos_block_number', 'Current block number')
-PHAROS_PEER_COUNT = Gauge('pharos_peer_count', 'Number of connected peers')
 PHAROS_VALIDATOR_WORKING = Gauge('pharos_validator_working', 'Whether the validator is currently working (in validator set)', ['validator_address'])
 
 def make_rpc_request(method, params=None):
@@ -61,13 +60,6 @@ def update_metrics():
                     # Fallback or error assume syncing or not? standard is false if false
                     PHAROS_NODE_SYNCING.set(0)
 
-                # Check peer count
-                peer_data = make_rpc_request("net_peerCount")
-                if peer_data and "result" in peer_data:
-                    # DEBUG: Print raw peer data
-                    print(f"DEBUG: net_peerCount response: {peer_data}")
-                    peer_count = int(peer_data["result"], 16)
-                    PHAROS_PEER_COUNT.set(peer_count)
 
                 # Check validator status if address provided
                 if VALIDATOR_ADDRESS:
