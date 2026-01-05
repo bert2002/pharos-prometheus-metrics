@@ -3,7 +3,7 @@ import time
 import requests
 import threading
 from fastapi import FastAPI
-from prometheus_client import make_asgi_app, Gauge
+from prometheus_client import Gauge
 
 app = FastAPI()
 
@@ -108,10 +108,10 @@ def update_metrics():
 metrics_thread = threading.Thread(target=update_metrics, daemon=True)
 metrics_thread.start()
 
-# Mount metrics app
-metrics_app = make_asgi_app()
-app.add_route("/metrics", metrics_app)
+# Metrics Endpoint
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
+from fastapi import Response
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
+@app.get("/metrics")
+def metrics():
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
