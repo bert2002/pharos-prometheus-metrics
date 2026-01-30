@@ -80,10 +80,9 @@ def update_metrics():
                         PHAROS_ADDRESS_BALANCE_WEI.labels(address=VALIDATOR_ADDRESS).set(float(wei))
                         PHAROS_ADDRESS_BALANCE_ETH.labels(address=VALIDATOR_ADDRESS).set(wei_to_eth(wei))
                     else:
-                        # if RPC fails, set to NaN-like behavior, prometheus client doesn't do NaN weel consistently
-                        # will just set 0
-                        PHAROS_ADDRESS_BALANCE_WEI.labels(address=VALIDATOR_ADDRESS).set(0)
-                        PHAROS_ADDRESS_BALANCE_ETH.labels(address=VALIDATOR_ADDRESS).set(0)
+                        # if RPC fails, set to NaN
+                        PHAROS_ADDRESS_BALANCE_WEI.labels(address=VALIDATOR_ADDRESS).set(float("nan"))
+                        PHAROS_ADDRESS_BALANCE_ETH.labels(address=VALIDATOR_ADDRESS).set(float("nan"))
 
                 # Check validator status if address provided
                 if VALIDATOR_ADDRESS:
@@ -104,7 +103,6 @@ def update_metrics():
                         
                         # Safer approach given limited docs: Check if address string is inside the result dump
                         # Case-insensitive check
-                        import json
                         result_str = json.dumps(val_data["result"]).lower()
                         if VALIDATOR_ADDRESS.lower() in result_str:
                             is_working = 1
