@@ -9,6 +9,7 @@ This application queries a Pharos node via JSON-RPC to fetch status information 
 - **Sync Status**: Monitors if the node is currently syncing.
 - **Block Height**: Tracks the current block number.
 - **Validator Status**: Checks if a specific validator address is active in the current block's validator set.
+- **Validator Address Balance**: Checks validator's address balance for Wei and ETH. 
 - **Dockerized**: specific support for Python 3.14-slim.
 
 ## Metrics
@@ -19,6 +20,8 @@ The exporter exposes the following metrics at `/metrics`:
 - `pharos_node_syncing` (Gauge): 1 if the node is syncing, 0 if fully synced.
 - `pharos_block_number` (Gauge): The current block number (height).
 - `pharos_validator_working{validator_address="..."}` (Gauge): 1 if the specified validator address is found in the current validator set, 0 otherwise.
+- `pharos_address_balance_wei{address="…"}` (Gauge): validator address balance in Wei
+- `pharos_address_balance_eth{address="…"}` (Gauge): validator address balance in ETH
 
 ## Configuration
 
